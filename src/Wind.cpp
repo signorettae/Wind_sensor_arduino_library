@@ -19,9 +19,8 @@
   VERSION 1.0.0 - INITIAL VERSION
   VERSION 1.0.1 - BUG FIXING
 
-    Inspired by the original project of Mauro Alfieri:
-  http://www.mauroalfieri.it/elettronica/anemometro-coppe-portatile-prima-parte.html
-  http://www.mauroalfieri.it/elettronica/anemometro-coppe-portatile-seconda-parte.html
+    Inspired by the original project of Federico Davanteri:
+http://www.nonsolovele.com/ARDUINO/DAVANTERI%20FEDERICO/Anemometro%20Arduino%20di%20Federico%20Davanteri%20FINALE%202015.pdf
 
 
 */
