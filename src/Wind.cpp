@@ -40,7 +40,7 @@ double Wind::getKmhSpeed(void)  //to get the speed in KM/h
 {
 	double kmhspeed = 0;  //initialize the variable
 	int pinval = digitalRead(_pin);  
-	if ((stato == 0) & (pinval == 1))
+	if ((stato == 0) && (pinval == 1))
 	{
 		unsigned long startime = 0;  //initialize the variable
 		unsigned long durata = 0;   //initialize the variable
@@ -56,7 +56,7 @@ double Wind::getKtsSpeed(void)  //to get the speed in knots
 {
 	double ktsspeed = 0; //initialize the variable
 	int pinval = digitalRead(_pin);
-	if ((stato == 0) & (pinval == 1))
+	if ((stato == 0) && (pinval == 1))
 	{
 		unsigned long startime = 0; //initialize the variable
 		unsigned long durata = 0; //initialize the variable
@@ -72,7 +72,7 @@ double Wind::getMpHSpeed() //to get the Miles per hour
 {
 	double mphspeed = 0; //initialize the variable
 	int pinval = digitalRead(_pin);
-	if ((stato == 0) & (pinval == 1))
+	if ((stato == 0) && (pinval == 1))
 	{
 		unsigned long startime = 0; //initialize the variable
 		unsigned long durata = 0; //initialize the variable
@@ -89,7 +89,7 @@ double Wind::getMtpsSpeed() //to get the speed in m/s
 {
 	double mtsspeed = 0;
 	int pinval = digitalRead(_pin);
-	if ((stato == 0) & (pinval == 1))
+	if ((stato == 0) && (pinval == 1))
 	{
 		unsigned long startime = 0;
 		unsigned long durata = 0;
