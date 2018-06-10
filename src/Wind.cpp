@@ -33,7 +33,7 @@ Wind::Wind(uint8_t pin)
 
 void Wind::begin(void)  //initializethe sensor
 {
-	pinMode(_pin, INPUT_PULLUP);  //set the pin as input
+	pinMode(_pin, INPUT);  //set the pin as input
 }
 
 double Wind::getKmhSpeed(void)  //to get the speed in KM/h
