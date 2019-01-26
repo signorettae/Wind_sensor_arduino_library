@@ -24,82 +24,79 @@ http://www.nonsolovele.com/ARDUINO/DAVANTERI%20FEDERICO/Anemometro%20Arduino%20d
 
 
 */
-#include <Wind.h>
+#include "Wind.h"
 
-Wind::Wind(uint8_t pin)
-{
-	_pin = pin;
+
+float windspeed = 0.0;
+uint32_t pulses = 0;
+uint32_t startTime = 0;
+
+Wind::Wind(uint8_t PIN) {
+	_PIN = PIN;
 }
 
-void Wind::begin(void)  //initializethe sensor
-{
-	pinMode(_pin, INPUT);  //set the pin as input
+
+bool Wind::begin(void) {
+
+	pinMode(_PIN, INPUT);
+	attachInterrupt(digitalPinToInterrupt(_PIN), contaImpulsi, FALLING);
+	startTime = millis();
+	pulses = 0;
+	return true;
 }
 
-double Wind::getKmhSpeed(void)  //to get the speed in KM/h
+
+void contaImpulsi(void)
 {
-	double kmhspeed = 0;  //initialize the variable
-	int pinval = digitalRead(_pin);  
-	if ((stato == 0) && (pinval == 1))
+	uint32_t durata = millis() - startTime;
+	if(durata > 15)
 	{
-		unsigned long startime = 0;  //initialize the variable
-		unsigned long durata = 0;   //initialize the variable
+		startTime = millis();
 
-		durata = millis() - startime;	// interval between two pulsations
-		startime = millis();	// set a new startime for the next pulsation
-		kmhspeed = 2500.0 / durata; 
+		// calcola velocità in Km/h
+		windspeed = 2500.0 / durata;
 	}
-	return kmhspeed;
 }
 
-double Wind::getKtsSpeed(void)  //to get the speed in knots
+double Wind::getKmhSpeed(void)
 {
-	double ktsspeed = 0; //initialize the variable
-	int pinval = digitalRead(_pin);
-	if ((stato == 0) && (pinval == 1))
-	{
-		unsigned long startime = 0; //initialize the variable
-		unsigned long durata = 0; //initialize the variable
-
-		durata = millis() - startime;	// interval between two pulsations
-		startime = millis();	// set a new startime for the next pulsation
-		ktsspeed = (2500.0 / durata) * 5.4;
-	}
-	return ktsspeed;
-}
-
-double Wind::getMpHSpeed() //to get the Miles per hour
-{
-	double mphspeed = 0; //initialize the variable
-	int pinval = digitalRead(_pin);
-	if ((stato == 0) && (pinval == 1))
-	{
-		unsigned long startime = 0; //initialize the variable
-		unsigned long durata = 0; //initialize the variable
-
-		durata = millis() - startime;	// interval between two pulsations
-		startime = millis();	// set a new startime for the next pulsation
-		mphspeed = (2500.0 / durata) * 5.21;
-	}
-	return mphspeed;
+	noInterrupts();
+	double res = windspeed;
+	//windspeed = 0;
+interrupts();
+	return res;
 }
 
 
-double Wind::getMtpsSpeed() //to get the speed in m/s
-{
-	double mtsspeed = 0;
-	int pinval = digitalRead(_pin);
-	if ((stato == 0) && (pinval == 1))
-	{
-		unsigned long startime = 0;
-		unsigned long durata = 0;
 
-		durata = millis() - startime;	// interval between two pulsations
-		startime = millis();	// set a new startime for the next pulsation
 
-		mtsspeed = (2500.0 / durata) * 2.8;
-	}
-	return mtsspeed;
+double Wind::getMtpsSpeed(void) {
+	disableInterrupts();
+	double MtpsSpeed = windspeed*2.77778;
+	windspeed = 0;
+	enableInterrupts();
+	return MtpsSpeed;
+}
+
+
+double Wind::getMpHSpeed(void) {
+	disableInterrupts();
+	double MpHSpeed = windspeed*6.21371;
+	windspeed = 0;
+	enableInterrupts();
+	return MpHSpeed;
+
+}
+
+
+
+double Wind::getKtsSpeed(void) {
+
+	disableInterrupts();
+	double KtsSpeed = windspeed*5.39957;
+	windspeed = 0;
+	enableInterrupts();
+	return KtsSpeed;
 }
 
 
