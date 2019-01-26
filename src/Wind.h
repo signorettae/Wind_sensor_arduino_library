@@ -25,34 +25,28 @@ http://www.nonsolovele.com/ARDUINO/DAVANTERI%20FEDERICO/Anemometro%20Arduino%20d
   */
 
 
+#ifndef __WIND_WIND_H
+#define __WIND_WIND_H
+
+#include <Arduino.h>
+
+class Wind {
+
+		public:
+			Wind(uint8_t PIN);
+			bool begin(void);
+
+			double getKmhSpeed(void);
+			double getMtpsSpeed(void);
+			double getMpHSpeed(void);
+			double getKtsSpeed(void);
 
 
-#ifndef Wind_H
-#define Wind_H
-#if ARDUINO >= 100
-#include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
 
-class Wind
-{
-	public:
-		Wind(uint8_t pin);
-		void begin(void);
-		double getKmhSpeed(void);
-		double getMtpsSpeed(void);
-		double getMpHSpeed(void);
-		double getKtsSpeed(void);
+		private:
 
-	private:
+			uint8_t _PIN;
 
-		unsigned long startime = 0;
-		unsigned long durata = 0;
-		int stato = 0;
-		uint8_t _pin;
-
-
-};
-
+	};
+void contaImpulsi();
 #endif
